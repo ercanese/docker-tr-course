@@ -56,5 +56,19 @@ docker run -d --name clock2 jpettzzo/clock
 docker stop <containerid> #10 saniye süreyle kapatma sinyali gönderir.
 docker kill <containerid> #direk olarak containeri kill eder.
 
+#Arka planda 3 adet clock çalışacak şekilde container oluşturalım.
+#Clock1 olan containeri stop komutu ile.
+#Clock2 olan containeri kill komutu ile durduralım.
+
+
+#docker içerisine girmeden logları görüntülemek için kullandığımız komut.
+
+docker logs <containerid>
+docker logs -f <containerid> #çalışan containerin loglarını takip etmek için.
+
+#imajları silmek için kullanılan komut
+
+docker rmi <imageid>
+docker rmi 1221 -f
 
 
