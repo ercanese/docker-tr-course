@@ -43,5 +43,18 @@ docker rm $(docker ps -qa)
 #çalışan bir containeri silmek için.
 docker rm <containerid> -f
 
+#Containerlar biribirinden izole bir yapıya sahiptir.
+#Container imajları read-only olarak kullanılmaktadır.
+
+
+#bir containeri arka planda çalıştırmak için.
+docker run -d --name <optionalname> <image>:<optag>
+docker run -d --name clock2 jpettzzo/clock 
+
+#container durdurmak için kullanılan komutlar.
+
+docker stop <containerid> #10 saniye süreyle kapatma sinyali gönderir.
+docker kill <containerid> #direk olarak containeri kill eder.
+
 
 
