@@ -111,7 +111,7 @@ docker run -it --name pwshdemo ubuntu
 apt update
 apt install vim -y
 
-sudo apt-get install -y wget apt-transport-https software-properties-common
+apt-get install -y wget apt-transport-https software-properties-common
 
 # Get the version of Ubuntu
 source /etc/os-release
@@ -146,3 +146,33 @@ while($true){
 pwsh Time.ps1
 
 ctrl-c
+
+
+#bir containeri imaj haline getirmek için.
+docker commit <containername> <newimagename:tag>
+
+#Commit esnasında bir arguman değiştirmek için.
+
+docker commit --change 'WORKDIR /app' --change 'CMD ["pwsh","time.ps1"]'
+
+
+mkdir demo
+cd demo
+git clone https://github.com/ercanese/docker-tr-course.git
+
+cd docker-tr-course/tbbdemo/publish
+
+docker pull mcr.microsoft.com/dotnet/aspnet:7.0
+
+docker run -it --name mvcdemo mcr.microsoft.com/dotnet/aspnet:7.0
+mkdir app
+exit
+
+docker cp . 1231:/app
+
+docker start -i 1231
+
+cd /app
+dotnet tbbdemo.dll
+
+
