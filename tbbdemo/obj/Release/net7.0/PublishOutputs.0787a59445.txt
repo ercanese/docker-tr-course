@@ -1,0 +1,7 @@
+C:\CourseTbb\tbbdemo\publish\tbbdemo.exe
+C:\CourseTbb\tbbdemo\publish\appsettings.Development.json
+C:\CourseTbb\tbbdemo\publish\appsettings.json
+C:\CourseTbb\tbbdemo\publish\tbbdemo.dll
+C:\CourseTbb\tbbdemo\publish\tbbdemo.deps.json
+C:\CourseTbb\tbbdemo\publish\tbbdemo.runtimeconfig.json
+C:\CourseTbb\tbbdemo\publish\tbbdemo.pdb
