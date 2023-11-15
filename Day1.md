@@ -182,3 +182,52 @@ docker run -d -p 8080:80 --name mvcapp01 mvc:v1
 #Otomatik olarak build almak için Dockerfile oluşturulmalı ve aşağıdaki komut çalıştırılmalı.
 
 docker build --tag ercan:v1 --file Dockerfile .
+
+
+
+
+
+Invoke-WebRequest -Uri https://codeload.github.com/ercanese/docker-tr-course/zip/refs/heads/main -OutFile /mnt/deployment.zip
+Expand-Archive -Path /mnt/deployment.zip -DestinationPath /mnt/
+
+$ImageName = "mvcapp"
+
+[int]$BuildNumber = Get-Content -Path /mnt/buildnumber
+$BuildNumber += 1
+Set-Content -Path /mnt/buildnumber -Value $BuildNumber
+
+$ImageBuild = "$($ImageName):$BuildNumber" + "v"
+
+docker build --tag $ImageBuild --file /mnt/docker-tr-course-main/tbbdemo/Dockerfile /mnt/docker-tr-course-main/tbbdemo
+
+
+Get-ChildItem /mnt/ -Exclude buildnumber | Remove-Item -Recurse -Force
+
+Start-Sleep 5
+
+docker rm app1 -f
+
+Start-Sleep 2
+
+docker run -d -p 8080:80 --name app1 $ImageBuild
+
+
+#Çalışan bir container içerisine girmek için.
+
+docker exec -it <containerid> <shell>
+
+docker exec -it 121312 /bin/bash
+
+#nfs volume oluşturma
+
+docker volume create --driver local --opt type=nfs --opt o=addr=1.1.1.1,rw --opt device=/mnt/nfsshare --name nfs-volume
+
+#Network oluşturmak için
+docker network create --gateway 172.16.10.1 --subnet 172.16.10.0/24 br01
+docker network ls
+
+docker run -d -p 9099:80 --name demo1 --network br01 mvc:v1 
+docker connect 23131 br01
+
+
+
