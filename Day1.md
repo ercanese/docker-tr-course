@@ -175,4 +175,10 @@ docker start -i 1231
 cd /app
 dotnet tbbdemo.dll
 
+docker commit --change 'WORKDIR /app' --change 'CMD ["dotnet","tbbdemo.dll"]' mvc mvc:v1
 
+docker run -d -p 8080:80 --name mvcapp01 mvc:v1
+
+#Otomatik olarak build almak için Dockerfile oluşturulmalı ve aşağıdaki komut çalıştırılmalı.
+
+docker build --tag ercan:v1 --file Dockerfile .
