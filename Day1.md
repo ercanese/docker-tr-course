@@ -33,6 +33,8 @@ docker run -it --name ubuntudemo ubuntu /bin/bash
 #Tüm containerların sadece idleri listelemek için.
 
 docker ps -qa
+docker ps -a
+docker ps 
 
 #Containerları silmek için.
 docker rm <containerid>
@@ -72,3 +74,75 @@ docker rmi <imageid>
 docker rmi 1221 -f
 
 
+#Container ile imaj arasındaki farkları ekranda görmek için
+docker diff <containerid>
+docker diff 1b52342
+
+#Container imajlarının geçmişi ile ilgili bilgi almak için
+docker history <imageid>
+docker history 1ce2313
+
+
+#Bir adet ubuntu imajından terminale düşecek şekilde bir container oluşturun.
+#Oluşturduğunuz bu containeri güncelleyin.
+#Sonrasında figlet paketini bu containera kuralım.
+
+apt update
+apt install figlet
+figlet ercan ese
+
+#Containerdan çıkalım ve imaj ile arasındaki farklara bakalım.
+
+#tüm docker objelerinin konfigürasyonlarını görüntülemek için.
+docker inspect <objectid>
+docker inspect 1c2
+
+#Inspect komutu ile formatlama işlemi yapabiliriz.
+
+docker inspect <containersid> -f '{{ .JsonObject }}'
+docker inspect <containersid> -f '{{ .JsonObject }} / {{ .JsonObject }}'
+
+#Ekranda sadece tüm containerların ismini ve state.status değerini ekranda görelim.
+
+docker inspect $(docker ps -qa) -f '{{ .Name }},{{ .State.Status }}'
+
+#PowerShell uygulamasını container içerisinde çalıştırma.
+docker run -it --name pwshdemo ubuntu 
+apt update
+apt install vim -y
+
+sudo apt-get install -y wget apt-transport-https software-properties-common
+
+# Get the version of Ubuntu
+source /etc/os-release
+
+# Download the Microsoft repository keys
+wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
+# Register the Microsoft repository keys
+dpkg -i packages-microsoft-prod.deb
+# Update the list of packages after we added packages.microsoft.com
+apt-get update
+###################################
+# Install PowerShell
+apt-get install -y powershell
+
+pwsh # PowerShell çalışıyormu kontrol et.
+exit
+
+mkdir /app
+cd app/
+
+vi Time.ps1
+insert için i tuşuna bas altta insert olmalı.
+shift insert tusu ile komutu yapıştır.
+
+while($true){
+    Write-Host (Get-Date)
+    Start-Sleep 1
+}
+
+:wq! # çıkış
+
+pwsh Time.ps1
+
+ctrl-c
